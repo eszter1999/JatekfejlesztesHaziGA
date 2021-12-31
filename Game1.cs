@@ -69,7 +69,7 @@ namespace Project1
                 Debug.WriteLine(track.getGoalPos() + Vector3.Up * 3);
                 if (player1.Position == (track.getGoalPos() + Vector3.Up * 3))
                 {
-                    player1.Position = track.getStartPos();
+                    //player1.Position = track.getStartPos();
                     player1.win();
                 }
 

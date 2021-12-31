@@ -19,7 +19,7 @@ namespace Project1.GeneticAlgotithm
 
         //get-set
         public int getChromosomeLength() { return chromosome.Count; }
-        public Directions getChromosome(int offset) { return chromosome[offset]; }
+        public Directions getGene(int offset) { return chromosome[offset]; }
         public void setGene(int offset, Directions dir) { chromosome[offset] = dir; }
 
 

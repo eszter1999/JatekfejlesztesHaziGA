@@ -8,7 +8,7 @@ namespace Project1.GeneticAlgotithm
     {
         private List<Individual> population;
 
-        public static int Fitness { get; set; } = -1;
+        public int Fitness { get; set; } = -1;
 
         public Population(int populationSize, int chomosomeLength)
         {
@@ -36,7 +36,7 @@ namespace Project1.GeneticAlgotithm
         public int size() { return population.Count; }
         public List<Individual> getPopulation() { return population; }
         public Individual getIndividual(int offset) { return population[offset]; }
-        public Individual getFitesst(int offset)
+        public Individual getFittest(int offset)
         {
             population.Sort();
             return population[offset];
