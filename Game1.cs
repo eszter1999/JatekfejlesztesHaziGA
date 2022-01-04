@@ -22,6 +22,7 @@ namespace Project1
             new Vector3(-1,0,0),
             new Vector3(2,0,0),
             new Vector3(2,3,0),
+            new Vector3(5, 6, 0),
             new Vector3(5,0,0),
             new Vector3(8,0,0),
             new Vector3(11,0,0),
