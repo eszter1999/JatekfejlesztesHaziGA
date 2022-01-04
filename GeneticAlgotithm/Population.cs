@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Project1.GeneticAlgotithm
@@ -7,14 +8,16 @@ namespace Project1.GeneticAlgotithm
     class Population
     {
         private List<Individual> population;
+        const int chromosomeLength = 50;
+        public bool FitnessReady;
 
-        public int Fitness { get; set; } = -1;
-
-        public Population(int populationSize, int chomosomeLength)
+        public Population(int populationSize)
         {
+            FitnessReady = false;
+            population = new List<Individual>();
             for (int ind = 0; ind < populationSize; ind++)
             {
-                population.Add(new Individual(chomosomeLength));
+                population.Add(new Individual(chromosomeLength));
             }
         }
 
@@ -35,6 +38,7 @@ namespace Project1.GeneticAlgotithm
         //get-set
         public int size() { return population.Count; }
         public List<Individual> getPopulation() { return population; }
+        public int getChomosomeLength() { return chromosomeLength; }
         public Individual getIndividual(int offset) { return population[offset]; }
         public Individual getFittest(int offset)
         {

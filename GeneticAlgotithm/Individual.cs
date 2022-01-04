@@ -5,16 +5,25 @@ using System.Text;
 
 namespace Project1.GeneticAlgotithm
 {
-    class Individual : IEquatable<Individual>, IComparable<Individual>
+    class Individual : IComparable
     {
         private List<Directions> chromosome;
-        public int Fitness { get; set; } = -1;
+        public double Fitness { get; set; } = 0;
 
         public Individual(int chromosomeLength)
         {
-            for (int gene = 0; gene < chromosomeLength; gene++)
-                chromosome.Add(Directions.STAY);
-            
+            chromosome = new List<Directions>();
+            Random rnd = new Random();
+            for (int gene = 0; gene < chromosomeLength; gene++) {
+                int temp = rnd.Next(4);
+                if (temp == 0)
+                    chromosome.Add(Directions.UP);
+                if (temp >1)
+                    chromosome.Add(Directions.RIGHT);
+                if (temp == 1)
+                    chromosome.Add(Directions.LEFT);
+            }
+
         }
 
         //get-set
@@ -32,9 +41,6 @@ namespace Project1.GeneticAlgotithm
                 string temp;
                 switch (gene)
                 {
-                    case Directions.STAY:
-                        temp = "Stay; ";
-                        break;
                     case Directions.RIGHT:
                         temp = "Right; ";
                         break;
@@ -53,31 +59,18 @@ namespace Project1.GeneticAlgotithm
             return output;
         }
 
-        public override bool Equals(object obj)
+        public int CompareTo(object obj)
         {
-             if (obj == null)
-                return false;
-             Individual objAsPart = obj as Individual;
-             if (objAsPart == null) 
-                return false;
-             else 
-                return Equals(objAsPart);
-        }
-
-        public bool Equals(Individual other)
-        {
-            if(other == null)
-                return false;
-            return (this.Fitness.Equals(other.Fitness));
-        }
-
-        public int CompareTo(Individual other)
-        {
-            if (other == null)
+            Individual orderToCompare = obj as Individual;
+            if (orderToCompare.Fitness < Fitness)
+            {
+                return -1;
+            }
+            if (orderToCompare.Fitness > Fitness)
+            {
                 return 1;
-
-            else
-                return this.Fitness.CompareTo(other.Fitness);
+            }
+            return 0;
         }
     }
 }

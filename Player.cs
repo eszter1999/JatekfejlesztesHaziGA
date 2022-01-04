@@ -1,10 +1,7 @@
 ﻿using Game1;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Project1
 {
@@ -12,28 +9,19 @@ namespace Project1
     {
         private Matrix localTransform = Matrix.CreateScale(0.5f);
         private Matrix WorldTransform = Matrix.Identity;
+        BasicGeometry _shere;
 
         Vector3 position, aim;
-        BasicGeometry _shere;
         public Vector3 Position => position;
-        string name;
-        bool won;
+        public string Name;
+        public bool won;
 
-        public Player(string s,Vector3 startPos)
+        public Player(string name,Vector3 startPos)
         {
-            name = s;
+            Name = name;
             position = startPos + Vector3.Up * 3;
             aim = Vector3.Zero;
             won = false;
-        }
-        public void restart(Vector3 start_pos) {
-            Debug.WriteLine(name + " has to restart.");
-            position = start_pos;
-            aim = Vector3.Zero;
-        }
-        public void win() { this.won = true;
-            Debug.WriteLine(name + " has won.");
-            _shere.Effect.DiffuseColor = Color.Blue.ToVector3();
         }
 
         public void load(GraphicsDevice graphicsDevice)
@@ -52,6 +40,7 @@ namespace Project1
             _shere.Draw(local1 * WorldTransform, cam.View, cam.Projection);
         }
 
+
         public bool isThisMoving() { return (aim != Vector3.Zero); }
 
         public void move()
@@ -61,14 +50,30 @@ namespace Project1
                 moveTo = new Vector3(1, 1, 0);
             else
                 moveTo = Vector3.Normalize(aim);
+            //Debug.WriteLine(name + " is moving -- " + "Poz: " + position + "   AimFromHere:" + aim + "    MoveTo:" + moveTo);
             position += moveTo;
             aim -= moveTo;
-            Debug.WriteLine(name + " is moving -- " + "Poz: " + position + "   AimFromHere:" + aim + "    MoveTo:" + moveTo);
-            if (aim == Vector3.Zero) Debug.WriteLine("Movement ends.");
         }
 
-        public void nextMoveTo(Vector3 aim){
-            this.aim = aim;
+        public void nextMoveTo(Vector3 aim){ this.aim = aim; }
+        public void restart(Vector3 start_pos)
+        {
+            position = start_pos;
+            aim = Vector3.Zero;
+        }
+        public void win()
+        {
+            this.won = true;
+            Debug.WriteLine(Name + " has won.");
+            _shere.Effect.DiffuseColor = Color.Blue.ToVector3();
+        }
+
+        public void reset(Vector3 start)
+        {
+            this.won = false;
+            _shere.Effect.DiffuseColor = Color.Red.ToVector3();
+            position = start+Vector3.Up *3;
+            aim = Vector3.Zero;
         }
     }
 }
